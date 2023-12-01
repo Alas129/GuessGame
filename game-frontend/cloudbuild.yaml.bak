@@ -1,0 +1,22 @@
+# cloudbuild.yaml
+
+steps:
+# Step 1: Install dependencies and build the React app
+- name: 'node:14'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    npm install
+    npm run build
+
+# Step 2: Deploy the built app to App Engine
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'app'
+  - 'deploy'
+  - 'app.yaml'  # Specify the path to your App Engine configuration file
+  - '--promote'
+  - '--account=bookstore-404519@appspot.gserviceaccount.com'
+
+# Optional: You may add additional steps as needed, such as running tests, linting, etc.
