@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import java.time.LocalDate;
 
 /**
- *
+ * Entity class representing a game.
  * @author Alusi
  * @date 2023.12.1
  */

@@ -4,7 +4,7 @@ import com.google.cloud.spring.data.datastore.core.mapping.Entity;
 import org.springframework.data.annotation.Id;
 
 /**
- *
+ * Entity class representing a user.
  * @author Alusi
  * @date 2023.12.01
  */

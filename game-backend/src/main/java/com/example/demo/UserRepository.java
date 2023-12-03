@@ -1,7 +1,7 @@
 package com.example.demo;
 
 /**
- *
+ * Repository interface for managing User entities in the database.
  * @author Alusi
  * @date 2023.12.1
  */

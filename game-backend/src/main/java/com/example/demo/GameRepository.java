@@ -6,7 +6,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 /**
- *
+ * Repository interface for managing Game entities in the database.
  * @author Alusi
  * @date 2023.12.1
  */
