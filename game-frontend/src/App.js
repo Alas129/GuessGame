@@ -1,137 +1,85 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './BookList.css';
-import LoginForm from './LoginForm'
+import Login from "./Login";
+import Game from './Game';
+import Ranking from './Ranking';
+import GameId from './GameId';
+import { Navigate, BrowserRouter as Router, Route,Routes } from 'react-router-dom';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import  axios from 'axios';
 
-function BooksComponent() {
-  const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const firebaseConfig = {
+  apiKey: "AIzaSyCRcAl2AScYe98nxTeEE-9rCVNe_ExnP1Y",
+  authDomain: "guessgame-c8eaf.firebaseapp.com",
+  projectId: "guessgame-c8eaf",
+  storageBucket: "guessgame-c8eaf.appspot.com",
+  messagingSenderId: "1045512623760",
+  appId: "1:1045512623760:web:37c29461b53e0005a32a15",
+  measurementId: "G-4F0SRDMRCN"
+};
   
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [id, setId] = useState('');
-  const [year, setYear] = useState('');
-  // user is the currently logged in user
-	const [user, setUser] = useState(null);
-  
-  // function to call API to get all books in DB
-  function displayAllBooks() {
-  	axios.get('https://bookstore-404519.ue.r.appspot.com/findAllBooks')
+initializeApp(firebaseConfig);
+
+function App() {
+  const auth = getAuth();
+  const [user, loading, error] = useAuthState(auth);
+  const[loadingGameId,setLoadingGameId] = useState(true);
+  const[gameId,setGameId] = useState("");
+
+   function getGameId(userId){
+      axios.get(`https://guessgame-backend.uw.r.appspot.com/findGameIdByUserId?userId=${userId}`)
       .then(response => {
-        setBooks(response.data);  // Axios packs the response in a 'data' property
-        setLoading(false);
+        console.log(response.data);
+        setGameId(response.data);
+        setLoadingGameId(false);
       })
       .catch(error => {
-        setError(error.message);
-        setLoading(false);
+        console.log(error);
+        setLoadingGameId(false);
       });
-  
-  };
-
-    // function to call API to get all books in DB
-    function findByAuthor() {
-      axios.get(`https://bookstore-404519.ue.r.appspot.com/findByAuthor?author=${author}`)
-        .then(response => {
-          setBooks(response.data);  // Axios packs the response in a 'data' property
-          setLoading(false);
-        })
-        .catch(error => {
-          setError(error.message);
-          setLoading(false);
-        });
-    
-    };
-
-  // function to handle the user submit of a new book
-  // async used so we can use the "await", which causes a block until post is done
-  //   and makes for a little simpler code (no .then)
-  async function handleSubmit(event) {
-        event.preventDefault();
-        
-        const postData = {
-            title,
-            author,
-            year: parseInt(year, 10) // Convert string to integer
-        };
-
-        try {
-            const response = await axios.post('https://bookstore-404519.ue.r.appspot.com/saveBook', postData);
-            console.log('Response:', response.data);
-            displayAllBooks()
-        } catch (error) {
-            console.error('Error posting data:', error);
-        }
-    };
-
-  
-  // useEffect makes it so list of books shown when this component mounts
-  useEffect(() => {
-    // Using Axios to fetch data
-   
-    displayAllBooks()
-  }, []);
-
-  // this will be called by the LoginForm
-  function HandleLogin(user) {
-    setUser(user);
   }
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-
+  if(loading){
+    return (<div>
+      <p>Initialising User...</p>
+    </div>);
+  }
+  if(error){
+    return (<div>
+      <p>auth errorr...</p>
+    </div>);
+  }
+   getGameId(user.email);
+   if (loadingGameId) {
+    return (<div>
+      <p>Loading Game Id...</p>
+    </div>);
+   }
+  console.log(user);
+  console.log(gameId);
   return (
-    <div>
-      <div>
-        <div className="login-container">
-          <LoginForm LoginEvent={HandleLogin} />
-        </div>
-        <div>
-          {user?
-          <div className="book-list">
-            {books.map(book => (
-              <div className="book-item" key={book.id}>
-                <h3>{book.title}</h3>
-                <p>by {book.author}</p>
-              </div>
-            ))}
-                    
-            <form onSubmit={handleSubmit}>
-              <label>
-                Title:
-                <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
-              </label>
-              <br />
-              <label>
-                Author:
-                <input type="text" value={author} onChange={e => setAuthor(e.target.value)} />
-              </label>
-              <br />
-              <label>
-                Year:
-                <input type="number" value={year} onChange={e => setYear(e.target.value)} />
-              </label>
-              <br />
-              <button type="submit">Submit</button>
-            </form>
-        
-            {/* Form for finding books by author */}
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              findByAuthor(); // Correctly calling the findByAuthor function
-            }}>
-              <label>
-                Find by Author:
-                <input type="text" value={author} onChange={e => setAuthor(e.target.value)} />
-              </label>
-              <button type="submit">Find</button>
-            </form>
-          </div>:<br/>
-          }
-        </div>
-      </div>
-    </div>
+      <Router>
+      <Routes>
+        <Route
+          path="/login"
+          element={user ? <Navigate to="/gameId" /> : <Login />}
+        />
+        <Route
+          path="/"
+          element={user ? <Game /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/ranking"
+          element={<Ranking gameId = {gameId}/>}
+        />
+        <Route
+        path = "/gameId"
+        element={<GameId initialGameId={gameId}/>}
+        />
+      </Routes>
+      </Router>
   );
 }
 
-export default BooksComponent;
+export default App;
