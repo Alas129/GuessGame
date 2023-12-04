@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.google.common.collect.Lists;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @date 2023.12.1
  */
 
-
+@RestController
 public class GameController {
     // Game repository for database operations
     private final GameRepository gameRepository;
@@ -27,14 +28,22 @@ public class GameController {
     /**
      * Endpoint to retrieve all games, sorted by score in descending order
      */
+//    @GetMapping("/findAllGames")
+//    @ResponseBody
+//    @CrossOrigin(origins = "*")
+//    public List<Game> findAllGames() {
+//        Iterable<Game> games = this.gameRepository.findAll(Sort.by("score").descending());
+//        List<Game> gameList = new ArrayList<>();
+//        games.forEach(gameList::add);
+//        return gameList;
+//    }
+
     @GetMapping("/findAllGames")
     @ResponseBody
     @CrossOrigin(origins = "*")
-    public List<Game> findAllGames() {
-        Iterable<Game> games = this.gameRepository.findAll(Sort.by("score").descending());
-        List<Game> gameList = new ArrayList<>();
-        games.forEach(gameList::add);
-        return gameList;
+    public String findAllGames() {
+        Iterable<Game> games = this.gameRepository.findAll();
+        return Lists.newArrayList(games).toString();
     }
 
     /**

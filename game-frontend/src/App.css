@@ -1,38 +1,206 @@
-.App {
+body, html, h1, h2, p, ul, li, label {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-size: cover;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.secret {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.userInput {
+  margin-top: 20px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+label {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+input {
+  padding: 12px;
+  width: 80px;
+  font-size: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: transparent;
+  color: #fff;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+button {
+  padding: 12px 24px;
+  font-size: 20px;
+  background-color: #6bc5d2;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #4ca9b9;
+}
+
+h2 {
+  margin-top: 20px;
+  color: #73a1b2;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Additional styles */
+.game-list {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  position: relative;
+}
+
+.all-game-list,
+.user-game-list {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 10px;
+  width: 45%;
+  flex-direction: column;
+  color: #fff;
+  position: relative;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.game-item {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.play-game-button {
+  position: absolute;
+  bottom: -300px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.game-list-header {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.delete-button{
+  margin: 0;
+  margin-left: 20px;
+  padding: 3px 12px;
+  font-size: 13px;
+}
+
+.show-playerName{
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: black;
+}
+/* styles.css */
+/* styles.css */
+
+.creat-playerName {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  height: 100vh; /* 100% of the viewport height */
+}
+
+.playerName-input-box {
+  color: black;
+  margin-bottom: 10px;
+}
+
+
+
+.playerName-input-box input {
+  color: black;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.playerName-Submit,
+.back-to-play-game {
+  background-color:  #6bc5d2;
+  border: none;
   color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 20px 10px;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.games-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+.all-games-previous-page,
+.all-games-next-page,
+.user-games-previous-page,
+.user-games-next-page {
+  background-color: #6bc5d2;
+  color: #fff;
+  border: none;
+  padding: 3px 12px; /* Adjust Button size */
+  margin: 0 5px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.all-games-previous-page:hover,
+.all-games-next-page:hover,
+.user-games-previous-page:hover,
+.user-games-next-page:hover {
+  background-color: #4ca9b9;
 }

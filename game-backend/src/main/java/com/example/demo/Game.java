@@ -19,11 +19,11 @@ public class Game {
     int score;
     LocalDate date;
 
-    public Game(String userId, String gameId, int score, LocalDate date) {
+    public Game(String userId, String gameId, int score) {
         this.userId = userId;
         this.gameId = gameId;
         this.score = score;
-        this.date = date;
+        this.date = LocalDate.now();
     }
 
     public Long getId() {

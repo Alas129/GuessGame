@@ -12,4 +12,8 @@ import java.util.List;
  */
 public interface GameRepository extends PagingAndSortingRepository<Game, Long >, DatastoreRepository<Game, Long > {
     List<Game> findByUserId(String userId);
+
+    List<Game> findByGameId(String gameId);
+
+    List<Game> findByScore(int score);
 }

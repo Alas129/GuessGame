@@ -1,0 +1,6 @@
+indexes:
+  - kind: games
+    properties:
+      - name: userId
+      - name: score
+        direction: desc
