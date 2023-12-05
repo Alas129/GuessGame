@@ -1,8 +1,10 @@
+/* Resetting default margin and padding for consistency */
 body, html, h1, h2, p, ul, li, label {
   margin: 0;
   padding: 0;
 }
 
+/* General styling for the body */
 body {
   background-size: cover;
   color: #fff;
@@ -14,6 +16,7 @@ body {
   padding: 0;
 }
 
+/* Styling for the header section */
 header {
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
@@ -23,6 +26,7 @@ header {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Styling for a section with a 'secret' class */
 .secret {
   text-align: center;
   background-color: rgba(0, 0, 0, 0.4);
@@ -32,11 +36,13 @@ header {
   color: #fff;
 }
 
+/* Styling for user input section */
 .userInput {
   margin-top: 20px;
   text-align: center;
 }
 
+/* Styling for labels */
 label {
   font-size: 20px;
   font-weight: bold;
@@ -65,6 +71,7 @@ button {
   transition: background-color 0.3s ease;
 }
 
+/* Styling for button hover effect */
 button:hover {
   background-color: #4ca9b9;
 }
@@ -76,6 +83,7 @@ h2 {
   font-weight: bold;
 }
 
+/* Styling for playerName-input-box section */
 .playerName-input-box {
   color: black;
   margin-bottom: 10px;
@@ -90,6 +98,7 @@ h2 {
   flex-direction: row;
 }
 
+/* Styling for games-page section */
 .games-page {
   display: flex;
   align-items: center;
@@ -105,6 +114,7 @@ h2 {
   position: relative;
 }
 
+/* Styling for all-game-list and user-game-list sections */
 .all-game-list,
 .user-game-list {
   background-color: rgba(0, 0, 0, 0.4);
