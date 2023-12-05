@@ -50,7 +50,8 @@ function App() {
       <p>auth errorr...</p>
     </div>);
   }
-   getGameId(user.email);
+  console.log(user);
+   getGameId(user);
    if (loadingGameId) {
     return (<div>
       <p>Loading Game Id...</p>
