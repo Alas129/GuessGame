@@ -9,6 +9,7 @@ import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import  axios from 'axios';
 
+// Firebase configuration object
 const firebaseConfig = {
   apiKey: "AIzaSyCRcAl2AScYe98nxTeEE-9rCVNe_ExnP1Y",
   authDomain: "guessgame-c8eaf.firebaseapp.com",
@@ -22,43 +23,50 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 
 function App() {
+  // Initializing Firebase authentication
   const auth = getAuth();
   const [user, loading, error] = useAuthState(auth);
   const[loadingGameId,setLoadingGameId] = useState(true);
   const[gameId,setGameId] = useState("");
 
-   function getGameId(userId){
-      axios.get(`https://guessgame-backend.uw.r.appspot.com/findGameIdByUserId?userId=${userId}`)
-      .then(response => {
-        console.log(response.data);
-        setGameId(response.data);
-        setLoadingGameId(false);
-      })
-      .catch(error => {
-        console.log(error);
-        setLoadingGameId(false);
-      });
+  // Function to get the game ID for a specific user
+  function getGameId(userId){
+    axios.get(`https://guessgame-backend.uw.r.appspot.com/findGameIdByUserId?userId=${userId}`)
+    .then(response => {
+      console.log(response.data);
+      setGameId(response.data);
+      setLoadingGameId(false);
+    })
+    .catch(error => {
+      console.log(error);
+      setLoadingGameId(false);
+    });
   }
 
+  // If user information is still loading, display a message
   if(loading){
     return (<div>
       <p>Initialising User...</p>
     </div>);
   }
+  // If there's an authentication error, display an error message
   if(error){
     return (<div>
       <p>auth errorr...</p>
     </div>);
   }
-  console.log(user);
-   getGameId(user);
-   if (loadingGameId) {
-    return (<div>
-      <p>Loading Game Id...</p>
-    </div>);
-   }
-  console.log(user);
-  console.log(gameId);
+  console.log("user:", user);
+
+  // Get the game ID for the current user
+  getGameId(user);
+  if (loadingGameId) {
+  return (<div>
+    <p>Loading Game Id...</p>
+  </div>);
+  }
+
+   console.log("gameId", gameId);
+
   return (
       <Router>
       <Routes>
