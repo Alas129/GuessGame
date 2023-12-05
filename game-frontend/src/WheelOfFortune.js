@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './WheelOfFortune.css'; // CSS styles
 
@@ -11,6 +12,7 @@ const WheelOfFortune = () => {
   const [totalGuessCount, setTotalGuessCount] = useState(0);
   const [wrongGuessCount, setWrongGuessCount] = useState(0);
   const [userInput, setUserInput] = useState('');
+  const [phraseInput, setPhraseInput] = useState('');
   const [score, setScore] = useState(0);
   const guessLimit = 7;
 
@@ -49,7 +51,6 @@ const WheelOfFortune = () => {
         setHiddenPhrase((prevHidden) => {
           const newHidden = [...prevHidden];
           newHidden[i] = targetCh;
-          console.log("newHidden: ",newHidden)
           return newHidden.join('');
         });
         correctGuessCount += 1; 
@@ -69,14 +70,30 @@ const WheelOfFortune = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(hiddenPhrase);
-    console.log(hiddenPhrase.includes('*'));
+    // // Guess entire phrases section
+    // const handlePhraseInput = (event) => {
+    //     setPhraseInput(event.target.value.toUpperCase());
+    // };
 
+    // const submitUserPhrase = () => {
+    //     const cleanedInput = phraseInput.replace(/[^A-Z]/g, ''); // Remove non-alphabetic characters
+    //     if (cleanedInput === phrase) {
+    //         alert('Congratulations! You Win!!!');
+    //         const newScore = calculateScore(totalGuessCount, wrongGuessCount);
+    //         setScore(newScore);
+    //         stopGame(true);
+    //     } else {
+    //         alert('Incorrect phrase. Try again.');
+    //         setWrongGuessCount(wrongGuessCount + 1);
+    //         setTotalGuessCount(totalGuessCount + 1);
+    //     }
+    //     setPhraseInput('');
+    // };
+
+  useEffect(() => {
     if (hiddenPhrase !== "" && !hiddenPhrase.includes('*')) {
       alert('Great guess. You Win!!!');
       const newScore = calculateScore(totalGuessCount, wrongGuessCount);
-      console.log("new score:", newScore);
       setScore(newScore);
       stopGame(true);
     }
@@ -84,7 +101,6 @@ const WheelOfFortune = () => {
 
   useEffect(() => {
     const newScore = calculateScore(totalGuessCount, wrongGuessCount);
-    console.log("new score:", newScore);
     setScore(newScore);
   }, [hiddenPhrase]);
 
@@ -106,9 +122,31 @@ const WheelOfFortune = () => {
   };
 
   const stopGame = (isWin) => {
+
     console.log("stop score:", score);
     // Navigate to a new page based on the game result
     const queryParams = { score };
+
+    const gameInfo = {
+        "userId": "user003",
+        "gameId": "pGame02",
+        "score": score * 100
+    };
+
+    // Send a POST request to store game information on the server
+    const response = axios.post('https://guessgame-backend.uw.r.appspot.com/saveGame', gameInfo)
+       .then(response => {
+            console.log(response); // This will show the full response object in the console
+            return response.data; // This is the data returned from the server
+        })
+        .then(data => {
+            console.log('Game information stored:', data);
+        })
+        .catch(error => {
+            console.error('Error storing game information:', error);
+        });
+    // console.log('Game information stored:', response);
+
 
     if (isWin) {
       navigate(`/win?${new URLSearchParams(queryParams)}`);
@@ -138,6 +176,16 @@ const WheelOfFortune = () => {
           />
           <button onClick={submitUserGuess}>Guess</button>
         </div>
+        {/* <div>
+            <input
+                type="text"
+                value={phraseInput}
+                onChange={handlePhraseInput}
+                placeholder="Enter the entire phrase"
+                id="phraseInput"
+            />
+            <button onClick={submitUserPhrase}>Submit Phrase</button>
+        </div> */}
       </div>
     </div>
   );
