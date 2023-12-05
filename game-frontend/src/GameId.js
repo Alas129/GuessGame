@@ -1,50 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { getAuth } from 'firebase/auth';
-import  axios from 'axios';
+import axios from 'axios';
 
-function GameId({initialGameId}){
+function GameId({ initialGameId }) {
+  const auth = getAuth();
+  const [gameId, setGameId] = useState(initialGameId);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-    function handlePlayGame(){
-        window.location.href = '/';
-      }
+  const handlePlayGame = () => {
+    window.location.href = '/';
+  };
 
-    console.log(initialGameId);
-    const auth = getAuth();
-    const[gameId,setGameId] = useState(initialGameId);
-    async function handleCreatGameId(event) {
-        event.preventDefault();
-        const postData = {
-            userId:auth.currentUser.email,
-            gameId,
-            
-        };
-        console.log(postData);
+  const handleCreateGameId = async (event) => {
+    event.preventDefault();
 
-        try {
-            const response = await axios.post('https://guessgame-backend.uw.r.appspot.com/saveUser', postData);
-            console.log('Response:', response.data);
-            alert("save successfully")
-        } catch (error) {
-            console.error('Error posting data:', error);
-            alert("save failed")
-        }
+    // Input validation example: Check if gameId is not empty
+    if (!gameId.trim()) {
+      alert('Please enter a valid GameId');
+      return;
+    }
+
+    const postData = {
+      userId: auth.currentUser.email,
+      gameId,
     };
 
-    return(
-        <div className="creat-game-id">
-        <form onSubmit={handleCreatGameId}>
+    setLoading(true);
+
+    try {
+      const response = await axios.post('https://guessgame-backend.uw.r.appspot.com/saveUser', postData);
+      console.log('Response:', response.data);
+      alert('Save successful');
+    } catch (error) {
+      console.error('Error posting data:', error);
+      setError('Save failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="create-game-id">
+      <form onSubmit={handleCreateGameId}>
         <label>
-            GameId:
-            <input type="text" value={gameId} onChange={e => {
-                console.log(auth.currentUser.email);
-                setGameId(e.target.value)}} />
+          GameId:
+          <input
+            type="text"
+            value={gameId}
+            onChange={(e) => setGameId(e.target.value)}
+          />
         </label>
         <br />
-        <button type="submit">submit</button>
-        </form>
-    <button onClick={handlePlayGame}>Play Game</button> 
-</div>
-    )
- }
+        <button type="submit" disabled={loading}>
+          {loading ? 'Saving...' : 'Submit'}
+        </button>
+      </form>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <button onClick={handlePlayGame} disabled={loading}>
+        Play Game
+      </button>
+    </div>
+  );
+}
 
 export default GameId;
