@@ -1,173 +1,38 @@
-/* Resetting default margin and padding for consistency */
-body, html, h1, h2, p, ul, li, label {
-  margin: 0;
-  padding: 0;
-}
-
-/* General styling for the body */
-body {
-  background-size: cover;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-/* Styling for the header section */
-header {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Styling for a section with a 'secret' class */
-.secret {
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.4);
-  padding: 50px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  color: #fff;
-}
-
-/* Styling for user input section */
-.userInput {
-  margin-top: 20px;
+.App {
   text-align: center;
 }
 
-/* Styling for labels */
-label {
-  font-size: 20px;
-  font-weight: bold;
-  color: #fff;
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
 
-input {
-  padding: 12px;
-  width: 80px;
-  font-size: 20px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  background-color: transparent;
-  color: #fff;
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
 
-button {
-  padding: 12px 24px;
-  font-size: 20px;
-  background-color: #6bc5d2;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  margin: 20px;
-  transition: background-color 0.3s ease;
-}
-
-/* Styling for button hover effect */
-button:hover {
-  background-color: #4ca9b9;
-}
-
-h2 {
-  margin-top: 20px;
-  color: #73a1b2;
-  font-size: 22px;
-  font-weight: bold;
-}
-
-/* Styling for playerName-input-box section */
-.playerName-input-box {
-  color: black;
-  margin-bottom: 10px;
-}
-
-.playerName-input-box input {
-  color: black;
-}
-
-.buttons-container {
-  display: flex;
-  flex-direction: row;
-}
-
-/* Styling for games-page section */
-.games-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-  
-}
-
-.game-list {
-  display: flex;
-  justify-content: space-around;
-  text-align: center;
-  position: relative;
-}
-
-/* Styling for all-game-list and user-game-list sections */
-.all-game-list,
-.user-game-list {
-  background-color: rgba(0, 0, 0, 0.4);
-  padding: 50px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin: 10px;
-  width: 45%;
-  flex-direction: column;
-  color: #fff;
-  position: relative;
-}
-
-h1 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.game-item {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.play-game-button {
-  position: absolute;
-  bottom: -300px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.game-list-header {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #fff;
-}
-
-.delete-button{
-  margin: 0;
-  margin-left: 20px;
-  padding: 3px 12px;
-  font-size: 13px;
-}
-
-.show-playerName{
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: black;
-}
-
-.creat-playerName {
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
