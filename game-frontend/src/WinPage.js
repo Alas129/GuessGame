@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import './WinPage.css';
 
 const WinPage = ({ score }) => {
 
@@ -25,13 +26,13 @@ const WinPage = ({ score }) => {
     
     console.log("gameRecords: ", gameRecords)
     if (!Array.isArray(gameRecords) || gameRecords.length === 0) {
-        console.log("Error Records: ", gameRecords)
+        console.log("Exception Records: ", gameRecords)
         console.log(typeof(gameRecords))
-        return <p>No game records found.</p>;
+        return <p>Loading...please wait</p>;
     }
     
     return (
-        <div>
+        <div className="win-container">
             <h2>Congratulations! You Win!</h2>
             <p>Your Score: {score}</p>
 
@@ -41,7 +42,7 @@ const WinPage = ({ score }) => {
                 {gameRecords.map(record => (
                 <li key={record.id}>
                     {/* Display relevant information from game record */}
-                    {record.date} - {record.userId}
+                    {record.date} - {record.userId} - {record.gameId} - {record.score}
                 </li>
                 ))}
             </ul>

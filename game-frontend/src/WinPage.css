@@ -1,0 +1,21 @@
+/* WinPage.css */
+.win-container {
+    text-align: center;
+    background-color: rgb(150, 234, 213);
+    padding: 20px;
+  }
+  
+  h2, h3, p {
+    font-size: 1.5em;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+  }
+  

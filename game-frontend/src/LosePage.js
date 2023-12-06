@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import './LosePage.css';
 
 const LosePage = () => {
   const { search } = useLocation();
@@ -7,7 +8,7 @@ const LosePage = () => {
   const score = queryParams.get('score');
 
   return (
-    <div>
+    <div className="lose-container">
       <h2>Game Over! You Lose!</h2>
       <p>Your Score: {score}</p>
     </div>
