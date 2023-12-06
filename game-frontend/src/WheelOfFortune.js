@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import LoginForm from './LoginForm'; // Import the login component
 import './WheelOfFortune.css'; // CSS styles
 
 const WheelOfFortune = () => {
@@ -158,6 +159,10 @@ const WheelOfFortune = () => {
   return (
     <div className="wheel-container">
       <h1>Wheel of Fortune Game</h1>
+
+      {/* Display login component */}
+      <LoginForm />
+      
       <div>
         <p>Hidden Phrase: {hiddenPhrase}</p>
         <p>Previous Guesses: {previousGuesses.join(', ')}</p>
